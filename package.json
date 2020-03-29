@@ -59,5 +59,9 @@
     "yarn.lock": [
       "git rm --cached"
     ]
+  },
+  "dependencies": {
+    "@types/react-router": "^5.1.4",
+    "react-router": "^5.1.2"
   }
 }
