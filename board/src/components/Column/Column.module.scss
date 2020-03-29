@@ -1,0 +1,11 @@
+.Column {
+  background-color: #D4D4D4;
+  border-radius: 5px;
+  width: 300px;
+  margin-right: 24px;
+
+  &Header {
+    padding: 0 12px;
+    font: 15px Roboto;
+  }
+}
