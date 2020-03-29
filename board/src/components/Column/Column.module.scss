@@ -3,9 +3,11 @@
   border-radius: 5px;
   width: 300px;
   margin-right: 24px;
+  padding: 0 12px 8px;
+  box-sizing: border-box;
 
   &Header {
-    padding: 0 12px;
     font: 15px Roboto;
+    margin-bottom: 12px;
   }
 }

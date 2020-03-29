@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { Card } from '@components/Card/Card';
+import { Button } from '@components/shared/Button/Button';
+import { Icon } from '@components/shared/Icon/Icon';
 
 import { IAppState } from '@models/IAppState';
 import { ICardsListState } from '@models/ICardsListState';
@@ -29,5 +31,12 @@ export const Column: React.FunctionComponent<IColumnProps> = ({
         key={card.id}
       />;
     })}
+    <Button
+      type="secondary"
+      props={{}}
+      icon="add"
+    >
+      Добавить еще одну карточку
+    </Button>
   </div>;
 };

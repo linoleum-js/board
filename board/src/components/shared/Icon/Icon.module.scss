@@ -1,0 +1,14 @@
+.Icon {
+  display: inline-block;
+  background-repeat: no-repeat;
+  width: 14px;
+  height: 14px;
+
+  &Close {
+    background-image: url('../../../assets/icon-close.svg');
+  }
+
+  &Add {
+    background-image: url('../../../assets/icon-add.svg');
+  }
+}
