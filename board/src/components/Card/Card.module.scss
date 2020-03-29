@@ -4,6 +4,7 @@
   border-radius: 2px;
   margin: 14px 0;
   padding: 8px 11px;
+  position: relative;
 
   &Inner {
     -webkit-line-clamp: 2;
@@ -12,5 +13,22 @@
     text-overflow: ellipsis;
     display: block;
     display: -webkit-box;
+  }
+
+  &EditButton {
+    position: absolute;
+    right: 0px;
+    top: 1px;
+    display: none;
+
+    button {
+      background-color: #f0f0f0;
+    }
+  }
+
+  &:hover {
+    .CardEditButton {
+      display: block;
+    }
   }
 }

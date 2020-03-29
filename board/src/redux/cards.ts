@@ -11,7 +11,7 @@ const list: ICardData[] = [{
   id: uuid(),
   column: 'in_progress'
 }, {
-  title: 'Пример длинного текста карточки, да такого чтобы он вообще не пример длинного текста карточки, да такого чтобы он вообще не',
+  title: 'Пример длинного текста карточки, да такого чтобы он вообще не поместился',
   text: 'Some text',
   id: uuid(),
   column: 'in_progress'
@@ -116,7 +116,7 @@ const CardsListReducer: Reducer<ICardsListState> = (
       const { list } = state;
       return {
         isLoading: false,
-        list: [...list, { ...card, id: uuid() }]
+        list: [...list, { ...card }]
       };
     }
 
