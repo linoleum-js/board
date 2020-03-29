@@ -1,13 +1,19 @@
 import React from 'react';
 
+import { ICardData } from '@models/ICardData';
+
 import style from  './Card.module.scss';
 
-export interface ICardProps {
-}
+type ICardProps = ICardData & {
+  
+};
 
 export const Card: React.FunctionComponent<ICardProps> = ({
+  title, text
 }) => {
   return <div className={style.Card}>
-    card
+    <div className={style.CardInner}>
+      {title}
+    </div>
   </div>;
 };

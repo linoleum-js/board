@@ -1,15 +1,14 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import thunk from 'redux-thunk';
 
-import CardsListReducer, { ICardsListState } from '@redux/cards';
+import { ICardsListState } from '@models/ICardsListState';
+import { IAppState } from '@models/IAppState';
 
-export interface IAppState {
-  usersList: ICardsListState
-}
+import CardsListReducer from '@redux/cards';
 
 const store = createStore(
   combineReducers<IAppState>({
-    usersList: CardsListReducer
+    cardsList: CardsListReducer
   }),
   compose(
     applyMiddleware(thunk)

@@ -2,18 +2,20 @@ import { Reducer, Action } from 'redux';
 import { findIndex } from 'lodash';
 import { v4 as uuid } from 'uuid';
 
-import { ICardData as ICardData } from '@models/ICardData';
+import { ICardData } from '@models/ICardData';
+import { ICardsListState } from '@models/ICardsListState';
 
 const list: ICardData[] = [{
-  title: 'Card no 1',
+  title: 'Пример текста карточки',
   text: 'Some text',
-  id: uuid()
+  id: uuid(),
+  column: 'in_progress'
+}, {
+  title: 'Пример длинного текста карточки, да такого чтобы он вообще не пример длинного текста карточки, да такого чтобы он вообще не',
+  text: 'Some text',
+  id: uuid(),
+  column: 'in_progress'
 }];
-
-export interface ICardsListState {
-  isLoading: boolean;
-  list: ICardData[];
-}
 
 export enum CardsActionTypes {
   RequestCardsList = 'REQUEST_CARDS_LIST',
@@ -41,7 +43,7 @@ export interface AddCardAction {
   payload: ICardData;
 }
 
-export type UsersAction =
+export type CardsAction =
   RequestCardsListAction |
   ReceiveCardsListAction |
   UpdateCardAction |
@@ -80,7 +82,7 @@ const CardsListReducer: Reducer<ICardsListState> = (
   state: ICardsListState = initialState,
   action: Action
 ): ICardsListState => {
-  const { type } = action as UsersAction;
+  const { type } = action as CardsAction;
 
   switch (type) {
     case CardsActionTypes.RequestCardsList:
