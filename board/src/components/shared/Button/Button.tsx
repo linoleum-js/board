@@ -5,17 +5,11 @@ import { Icon } from '@components/shared/Icon/Icon';
 
 import style from './Button.module.scss';
 
-export interface IButttonProps {
-  type: string;
-  props?: any;
-  icon?: string;
-}
-
-export const Button: React.FunctionComponent<IButttonProps> = ({
+export const Button: React.FunctionComponent<any> = ({
   children,
-  props,
   type,
-  icon
+  icon,
+  ...props
 }) => {
   const typeToClassMap: any = {
     primary: style.ButtonPrimary,
@@ -32,4 +26,16 @@ export const Button: React.FunctionComponent<IButttonProps> = ({
       children
     }
   </button>;
+};
+
+export const ButtonGroup: React.FunctionComponent<any> = ({
+  children,
+  ...props
+}) => {
+  return <div
+    className={style.ButtonGroup}
+    {...props}
+  >
+    {children}
+  </div>;
 };
