@@ -16,17 +16,19 @@ import { ICardData } from '@models/ICardData';
 import style from './AddCardForm.module.scss';
 
 export interface IAddCardFormProps {
-  onAdd: () => void;
+  onAdd: (title: string) => void;
 }
 
 export const AddCardForm: React.FunctionComponent<IAddCardFormProps> = ({
   onAdd
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [title, setTitle] = useState<string|undefined>(undefined);
+  const [title, setTitle] = useState<string>('');
 
   const handleAdd = function () {
-    console.log('handleAdd');
+    onAdd(title);
+    setIsOpen(false);
+    setTitle('');
   };
 
   return <div>
@@ -43,14 +45,14 @@ export const AddCardForm: React.FunctionComponent<IAddCardFormProps> = ({
           <ButtonGroup>
             <Button
               type="primary"
-              onClick={() => handleAdd}
+              onClick={() => handleAdd()}
               disabled={!title}
             >
               Добавить карточку
             </Button>
             <Button
               type="secondary"
-              onClick={() => handleAdd}
+              onClick={() => setIsOpen(false)}
               icon="close"
             >
               Отмена
