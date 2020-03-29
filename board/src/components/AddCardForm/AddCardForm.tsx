@@ -1,19 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuid } from 'uuid';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { Column, IColumnProps } from '@components/Column/Column';
 import { Button, ButtonGroup } from '@components/shared/Button/Button';
 
-
 import { addCard } from '@redux/cards';
-import {
-  fetchCardsList
-} from '@redux/cards';
-
-import { IAppState } from '@models/IAppState';
-import { ICardsListState } from '@models/ICardsListState';
-import { ICardData } from '@models/ICardData';
 
 import style from './AddCardForm.module.scss';
 
@@ -29,7 +20,6 @@ export const AddCardForm: React.FunctionComponent<IAddCardFormProps> = ({
   const dispatch = useDispatch();
 
   const handleAdd = function () {
-    // onAdd(title);
     close();
     dispatch(addCard({ title, text: '', id: uuid(), column }));
   };
@@ -38,9 +28,6 @@ export const AddCardForm: React.FunctionComponent<IAddCardFormProps> = ({
     setIsOpen(false);
     setTitle('');
   };
-
-  // const handleAdd = function () {
-  // };
 
   return <div>
     {isOpen ?

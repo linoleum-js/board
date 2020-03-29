@@ -8,12 +8,12 @@ import { ICardsListState } from '@models/ICardsListState';
 const list: ICardData[] = [{
   title: 'Пример текста карточки',
   text: 'Some text',
-  id: uuid(),
+  id: "8324f64b-b8d0-47f3-9502-8cc91680812b",
   column: 'in_progress'
 }, {
   title: 'Пример длинного текста карточки, да такого чтобы он вообще не поместился',
   text: 'Some text',
-  id: uuid(),
+  id: "e0c609dd-ccdd-492d-b930-48e98f9c71e0",
   column: 'in_progress'
 }];
 

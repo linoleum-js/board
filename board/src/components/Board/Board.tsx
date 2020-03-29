@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { Column, IColumnProps } from '@components/Column/Column';
+import Column, { IColumnProps } from '@components/Column/Column';
 
 import {
   fetchCardsList

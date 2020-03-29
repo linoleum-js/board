@@ -1,16 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-import { Column, IColumnProps } from '@components/Column/Column';
 
-import { Button, ButtonGroup } from '@components/shared/Button/Button';
+import { Button } from '@components/shared/Button/Button';
 
 import {
   updateCard
 } from '@redux/cards';
 
-import { IAppState } from '@models/IAppState';
-import { ICardsListState } from '@models/ICardsListState';
 import { ICardData } from '@models/ICardData';
 
 import style from './EditCardForm.module.scss';
@@ -25,7 +22,6 @@ export const EditCardForm: React.FunctionComponent<IAddCardFormProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { title, text, id, column } = data;
-  const [isEditing, setIsEditing] = useState(false);
   const [localTitle, setTitle] = useState<string>(title);
   const [localText, setText] = useState<string>(text);
 

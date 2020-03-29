@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuid } from 'uuid';
+import React from 'react';
+import { useParams, RouteComponentProps, withRouter } from 'react-router-dom';
+import { find } from 'lodash';
 
 import { Card } from '@components/Card/Card';
-import { Button } from '@components/shared/Button/Button';
-import { Icon } from '@components/shared/Icon/Icon';
 import { AddCardForm } from '@components/AddCardForm/AddCardForm';
 import { Modal } from '@components/shared/Modal/Modal';
 import { EditCardForm } from '@components/EditCardForm/EditCardForm';
 
-import { IAppState } from '@models/IAppState';
-import { ICardsListState } from '@models/ICardsListState';
 import { ICardData } from '@models/ICardData';
-
-import { addCard } from '@redux/cards';
 
 import style from  './Column.module.scss';
 
@@ -23,21 +17,19 @@ export interface IColumnProps {
   cards: ICardData[];
 }
 
-export const Column: React.FunctionComponent<IColumnProps> = ({
-  name, id, cards
+const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProps> = ({
+  name, id, cards, history
 }) => {
-  const dispatch = useDispatch();
-  const [editOpen, setEditOpen] = useState(false);
-  const [editingCard, seteditingCard] = useState<ICardData|null>(null);
-
+  const params: any = useParams();
+  const editingCard = find(cards, { id: params.id });
+  const editOpen = !!editingCard;
+  
   const onEdit = function (data: ICardData) {
-    seteditingCard(data);
-    setEditOpen(true);
+    history.push(`/${data.id}`);
   };
 
   const onEditSubmit = function () {
-    seteditingCard(null);
-    setEditOpen(false);
+    history.push(`/`);
   };
 
   return <div className={style.Column}>
@@ -54,7 +46,7 @@ export const Column: React.FunctionComponent<IColumnProps> = ({
     
     <Modal
       isOpen={editOpen}
-      onClose={() => setEditOpen(false)}
+      onClose={() => onEditSubmit()}
     >
       <EditCardForm
         data={editingCard!}
@@ -63,3 +55,5 @@ export const Column: React.FunctionComponent<IColumnProps> = ({
     </Modal>
   </div>;
 };
+
+export default withRouter(ColumnComponent);
