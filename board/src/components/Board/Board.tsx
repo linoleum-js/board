@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import Backend from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 import { useSelector, useDispatch } from 'react-redux';
 
 import Column, { IColumnProps } from '@components/Column/Column';
@@ -23,7 +25,6 @@ export const Board: React.FunctionComponent<IBoardProps> = () => {
     state.cardsList
   );
   
-
   const columnsProps: IColumnProps[] = [{
     name: 'В работе',
     id: 'in_progress'
@@ -45,12 +46,14 @@ export const Board: React.FunctionComponent<IBoardProps> = () => {
   }, []);
 
 
-  return <div className={style.Board}>
-    {columnsProps.map((item: IColumnProps) => {  
-      return <Column
-        {...item}
-        key={item.id}
-      />
-    })}
-  </div>;
+  return <DndProvider backend={Backend}> 
+    <div className={style.Board}>
+      {columnsProps.map((item: IColumnProps) => {  
+        return <Column
+          {...item}
+          key={item.id}
+        />
+      })}
+    </div>
+  </DndProvider>;
 };

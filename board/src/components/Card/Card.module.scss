@@ -5,6 +5,8 @@
   margin: 14px 0;
   padding: 8px 11px;
   position: relative;
+  user-select: none;
+  cursor: pointer;
 
   &Inner {
     -webkit-line-clamp: 2;
@@ -23,6 +25,7 @@
 
     button {
       background-color: #f0f0f0;
+      padding: 0 9px;
     }
   }
 

@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-
 import { Button } from '@components/shared/Button/Button';
 
-import {
-  updateCard
-} from '@redux/cards';
+import { updateCard } from '@redux/cards';
 
 import { ICardData } from '@models/ICardData';
 

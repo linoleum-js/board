@@ -1,5 +1,7 @@
 import React from 'react';
 import { useParams, RouteComponentProps, withRouter } from 'react-router-dom';
+import { useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
 import { find } from 'lodash';
 
 import { Card } from '@components/Card/Card';
@@ -11,6 +13,8 @@ import { ICardData } from '@models/ICardData';
 
 import style from  './Column.module.scss';
 
+import { moveCard } from '@redux/cards';
+
 export interface IColumnProps {
   name: string;
   id: string;
@@ -20,7 +24,17 @@ export interface IColumnProps {
 const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProps> = ({
   name, id, cards, history
 }) => {
+  const dispatch = useDispatch();
   const params: any = useParams();
+  const [collectedProps, drop] = useDrop({
+    accept: 'card',
+    drop: (item: any, monitor) => {
+      if (item.prevColumn !== id) {
+        dispatch(moveCard(item.id, id));
+        console.log('item', item);
+      }
+    }
+  });
   const editingCard = find(cards, { id: params.id });
   const editOpen = !!editingCard;
   
@@ -32,7 +46,7 @@ const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProp
     history.push(`/`);
   };
 
-  return <div className={style.Column}>
+  return <div className={style.Column} ref={drop}>
     <h2 className={style.ColumnHeader}>{name}</h2>
     {cards.map((card: ICardData) => {
       return <Card

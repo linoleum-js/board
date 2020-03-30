@@ -21,6 +21,7 @@ export enum CardsActionTypes {
   RequestCardsList = 'REQUEST_CARDS_LIST',
   ReceiveCardsList = 'RECEIVE_CARDS_LIST',
   UpdateCard = 'UPDATE_CARD',
+  MoveCard = 'MOVE_CARD',
   AddCard = 'ADD_CARD'
 }
 
@@ -38,6 +39,14 @@ export interface UpdateCardAction {
   payload: ICardData;
 }
 
+export interface MoveCardAction {
+  type: CardsActionTypes.MoveCard;
+  payload: {
+    id: string;
+    to: string;
+  };
+}
+
 export interface AddCardAction {
   type: CardsActionTypes.AddCard;
   payload: ICardData;
@@ -47,12 +56,20 @@ export type CardsAction =
   RequestCardsListAction |
   ReceiveCardsListAction |
   UpdateCardAction |
+  MoveCardAction |
   AddCardAction;
 
 export const updateCard = (data: ICardData) => (dispatch: Function) => {
   dispatch({
     type: CardsActionTypes.UpdateCard,
     payload: data
+  });
+};
+
+export const moveCard = (id: string, to: string) => (dispatch: Function) => {
+  dispatch({
+    type: CardsActionTypes.MoveCard,
+    payload: { id, to }
   });
 };
 
@@ -104,6 +121,22 @@ const CardsListReducer: Reducer<ICardsListState> = (
       const index: number = findIndex(list, { id: card.id });
       const newList = [...list];
       newList[index] = card;
+
+      return {
+        isLoading: false,
+        list: newList
+      };
+    }
+    
+    case CardsActionTypes.MoveCard: {
+      const { payload: data } = action as MoveCardAction;
+      const { id, to } = data;
+      const { list } = state;
+      const index: number = findIndex(list, { id });
+      const card = list[index];
+      const newCard = { ...card, column: to };
+      const newList = [...list];
+      newList[index] = newCard;
 
       return {
         isLoading: false,
