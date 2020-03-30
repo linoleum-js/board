@@ -22,7 +22,8 @@
     "paths": {
       "@redux/*": ["redux/*"],
       "@components/*": ["components/*"],
-      "@models/*": ["models/*"]
+      "@models/*": ["models/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": [

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 import { useDrag } from 'react-dnd'
 
 import { Button } from '@components/shared/Button/Button';
@@ -12,12 +13,21 @@ type ICardProps = ICardData & {
 };
 
 export const Card: React.FunctionComponent<ICardProps> = (data) => {
-  const { title, text, onEdit, id, column } = data;
-  const [collectedProps, drag] = useDrag({
-    item: { id, type: 'card', prevColumn: column },
-  })
+  const { title, text, onEdit, id, column, type } = data;
+  const [{ isDragging }, drag] = useDrag({
+    item: { id, title, type: 'card', prevColumn: column },
+    collect: monitor => ({
+      isDragging: monitor.isDragging()
+    }),
+  });
 
-  return <div className={style.Card} ref={drag}>
+  (id === "e0c609dd-ccdd-492d-b930-48e98f9c71e0") && console.log('isDragging', isDragging);
+  const classes = classnames(style.Card, {
+    [style.CardDragging]: isDragging,
+    [style.CardPlaceholder]: type === 'placeholder'
+  });
+
+  return <div className={classes} ref={drag}>
     <div className={style.CardInner}>
       {title}
     </div>

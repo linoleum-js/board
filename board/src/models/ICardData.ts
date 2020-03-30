@@ -3,4 +3,5 @@ export interface ICardData {
   text: string;
   id: string;
   column: string;
+  type?: string;
 }

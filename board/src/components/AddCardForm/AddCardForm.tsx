@@ -37,6 +37,7 @@ export const AddCardForm: React.FunctionComponent<IAddCardFormProps> = ({
           onChange={(e) => setTitle(e.target.value)}
           className={style.AddFromTextarea}
           placeholder="Введите текст карточки"
+          autoFocus
         >
         </textarea>
         <div>

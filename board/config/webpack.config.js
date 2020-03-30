@@ -300,6 +300,7 @@ module.exports = function(webpackEnv) {
         '@components': path.resolve(__dirname, '../src/components/'),
         '@models': path.resolve(__dirname, '../src/models/'),
         '@redux': path.resolve(__dirname, '../src/redux/'),
+        '@utils': path.resolve(__dirname, '../src/utils/'),
         ...(modules.webpackAliases || {})
       },
       plugins: [
