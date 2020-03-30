@@ -1,6 +1,5 @@
 import { Reducer, Action } from 'redux';
 import { findIndex } from 'lodash';
-import { v4 as uuid } from 'uuid';
 
 import { ICardData } from '@models/ICardData';
 import { ICardsListState } from '@models/ICardsListState';
@@ -79,6 +78,7 @@ export interface MoveCardAction {
   payload: {
     id: string;
     to: string;
+    index: number;
   };
 }
 
@@ -101,10 +101,10 @@ export const updateCard = (data: ICardData) => (dispatch: Function) => {
   });
 };
 
-export const moveCard = (id: string, to: string) => (dispatch: Function) => {
+export const moveCard = (id: string, to: string, index: number) => (dispatch: Function) => {
   dispatch({
     type: CardsActionTypes.MoveCard,
-    payload: { id, to }
+    payload: { id, to, index }
   });
 };
 
@@ -165,13 +165,20 @@ const CardsListReducer: Reducer<ICardsListState> = (
     
     case CardsActionTypes.MoveCard: {
       const { payload: data } = action as MoveCardAction;
-      const { id, to } = data;
-      const { list } = state;
-      const index: number = findIndex(list, { id });
-      const card = list[index];
+      const { id, to, index } = data;
+      let { list } = state;
+      const currentIndex: number = findIndex(list, { id });
+      const card = list[currentIndex];
+      list = list.filter((item) => item.id !== id );
+      const cardsInColumn = list.filter(({ column }) => column == card.column);
+      const currentCardAtIndex = cardsInColumn[index];
+      const globalIndex = findIndex(list, { id: currentCardAtIndex.id });
       const newCard = { ...card, column: to };
-      const newList = [...list];
-      newList[index] = newCard;
+      const newList = [
+        ...list.slice(0, globalIndex),
+        newCard,
+        ...list.slice(globalIndex)
+      ];
 
       return {
         isLoading: false,

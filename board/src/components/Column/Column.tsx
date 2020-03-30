@@ -9,11 +9,13 @@ import { AddCardForm } from '@components/AddCardForm/AddCardForm';
 import { Modal } from '@components/shared/Modal/Modal';
 import { EditCardForm } from '@components/EditCardForm/EditCardForm';
 
+import { getDragIndex, removePlaceholder, hasPlaceholder } from '@utils/dnd';
+
 import { ICardData } from '@models/ICardData';
 
-import style from  './Column.module.scss';
-
 import { moveCard } from '@redux/cards';
+
+import style from  './Column.module.scss';
 
 export interface IColumnProps {
   name: string;
@@ -21,43 +23,6 @@ export interface IColumnProps {
   cards: ICardData[];
 }
 
-const removePlaceholder = function (cards: ICardData[]): ICardData[] {
-  return cards.filter(({ type }) => type !== 'placeholder');
-};
-
-const hasPlaceholder = function (cards: ICardData[]): boolean {
-  return cards.some(({ type }) => type === 'placeholder');
-};
-
-const isInArea = (offset: any, rect: any): boolean => {
-  return offset.x >= rect.left && offset.x <= rect.right &&
-    offset.y >= rect.top;
-};
-
-const isBefore = (offset: any, rect: any, height: number): boolean => {
-  return offset.y < rect.top + height / 2;
-};
-
-const getDragIndex = function (wrapper: any, offset: any, sourceOffset: any) {
-  const cards = Array.from(wrapper.current.querySelectorAll(
-    '[data-card="true"]'
-  ));
-
-  let index = 0;
-  
-  cards.forEach((card: any, i: number) => {
-    const rect = card.getBoundingClientRect();
-    if (isInArea(offset, rect)) {
-      if (isBefore(offset, rect, card.offsetHeight)) {
-        index = i;
-      } else {
-        index = i + 1;
-      }
-    }
-  });
-
-  return index;
-};
 
 const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProps> = ({
   name, id, cards, history
@@ -66,16 +31,27 @@ const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProp
   const [localCards, setLocalCards] = useState(cards);
   const dispatch = useDispatch();
   const params: any = useParams();
+
+  const [lastDragIndex, setLasstDragIndex] = useState(0);
   const [{ isOver, draggingItem }, drop] = useDrop({
     accept: 'card',
     hover: (item, monitor) => {
-      const index = getDragIndex(wrapper, monitor.getClientOffset(), monitor.getSourceClientOffset());
-      let newCards = [...removePlaceholder(localCards)].filter(({ id }) => id !== draggingItem.id);
-      newCards.splice(index, 0, { title: draggingItem.title, id: 'plid', column: id, text: '', type: 'placeholder' });
+      const index = getDragIndex(
+        wrapper,
+        monitor.getClientOffset(),
+        monitor.getSourceClientOffset());
+
+      const newCards = [...removePlaceholder(localCards)]
+        .filter(({ id }) => id !== draggingItem.id);
+
+      newCards.splice(index, 0,
+        { title: draggingItem.title, id: 'plid', column: id, text: '', type: 'placeholder' }
+      );
       setLocalCards(newCards);
+      setLasstDragIndex(index);
     },
-    drop: (item: any, monitor: any) => {
-      dispatch(moveCard(item.id, id));
+    drop: (item: any) => {
+      dispatch(moveCard(item.id, id, lastDragIndex));
     },
     collect: (monitor) => ({
       isOver: monitor.isOver({ shallow: true }),
@@ -83,8 +59,7 @@ const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProp
     })
   });
 
-  if (isOver) {
-  } else {
+  if (!isOver) {
     if (hasPlaceholder(localCards)) { 
       setLocalCards(removePlaceholder(localCards));
     }

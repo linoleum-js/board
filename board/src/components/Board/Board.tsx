@@ -5,13 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Column, { IColumnProps } from '@components/Column/Column';
 
-import {
-  fetchCardsList
-} from '@redux/cards';
+import { fetchCardsList } from '@redux/cards';
 
 import { IAppState } from '@models/IAppState';
 import { ICardsListState } from '@models/ICardsListState';
-import { ICardData } from '@models/ICardData';
 
 import style from './Board.module.scss';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classnames from 'classnames';
 import { useDrag } from 'react-dnd'
 
@@ -21,13 +21,11 @@ export const Card: React.FunctionComponent<ICardProps> = (data) => {
     }),
   });
 
-  // (id === "e0c609dd-ccdd-492d-b930-48e98f9c71e0") && console.log('isDragging', isDragging);
   const classes = classnames(style.Card, {
     [style.CardDragging]: isDragging,
     [style.CardPlaceholder]: type === 'placeholder'
   });
 
-  // const isRealCard = !isDragging && type !== 'placeholder';
   const isRealCard = !isDragging;
 
   return <div className={classes} ref={drag} data-card={isRealCard} id={id}>
