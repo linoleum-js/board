@@ -15,6 +15,41 @@ const list: ICardData[] = [{
   text: 'Some text',
   id: "e0c609dd-ccdd-492d-b930-48e98f9c71e0",
   column: 'in_progress'
+}, {
+  title: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusm',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-rgddxrg",
+  column: 'in_progress'
+}, {
+  title: ' tempor incididunt ut labore et dolore magna aliqua. ',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-w34rw34r",
+  column: 'in_progress'
+}, {
+  title: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-gsergsergser",
+  column: 'in_progress'
+}, {
+  title: ' Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. ',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-23ra34rsrtg",
+  column: 'testing'
+}, {
+  title: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-zergdfver",
+  column: 'testing'
+}, {
+  title: 'Sed ut perspiciatis unde omnis iste ',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-zergezrg",
+  column: 'testing'
+}, {
+  title: ' natus error sit voluptatem accusantium doloremque laudantium',
+  text: 'Some text',
+  id: "e0c609dd-ccdd-492d-b930-zergerg34rg",
+  column: 'testing'
 }];
 
 export enum CardsActionTypes {

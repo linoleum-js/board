@@ -21,13 +21,16 @@ export const Card: React.FunctionComponent<ICardProps> = (data) => {
     }),
   });
 
-  (id === "e0c609dd-ccdd-492d-b930-48e98f9c71e0") && console.log('isDragging', isDragging);
+  // (id === "e0c609dd-ccdd-492d-b930-48e98f9c71e0") && console.log('isDragging', isDragging);
   const classes = classnames(style.Card, {
     [style.CardDragging]: isDragging,
     [style.CardPlaceholder]: type === 'placeholder'
   });
 
-  return <div className={classes} ref={drag}>
+  // const isRealCard = !isDragging && type !== 'placeholder';
+  const isRealCard = !isDragging;
+
+  return <div className={classes} ref={drag} data-card={isRealCard} id={id}>
     <div className={style.CardInner}>
       {title}
     </div>
