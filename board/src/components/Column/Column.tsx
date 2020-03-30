@@ -39,11 +39,16 @@ const ColumnComponent: React.FunctionComponent<RouteComponentProps & IColumnProp
       const index = getDragIndex(
         wrapper,
         monitor.getClientOffset(),
-        monitor.getSourceClientOffset());
+        monitor.getSourceClientOffset()
+      );
 
+      // remove placeholder cards and the one being dragged
+      // (from the local state only, we don't want to touch the store yet
+      // bacause it's temporary data)
       const newCards = [...removePlaceholder(localCards)]
         .filter(({ id }) => id !== draggingItem.id);
 
+      // add a placeholder card
       newCards.splice(index, 0,
         { title: draggingItem.title, id: 'plid', column: id, text: '', type: 'placeholder' }
       );
